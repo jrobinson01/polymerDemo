@@ -1,0 +1,41 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../elements/todos-list/todos-list.html">
+<link rel="import" href="../elements/new-todo/new-todo.html">
+<!-- include 'action' behaviors -->
+<script src="/src/actions/todo-actions.js"></script>
+
+<dom-module id="polymerDemo-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <todos-list todos="[[todos]]"></todos-list>
+    <new-todo></new-todo>
+  </template>
+
+  <script>
+
+    Polymer({
+
+      is: 'polymerDemo-app',
+
+      behaviors:[actions.todo],
+
+      properties: {
+        todos:{
+          type:Array
+        }
+      },
+
+      ready: function() {
+        this.todos = [
+          {complete:false, body:'complete this demo.', saving:false},
+          {complete:false, body:'astound friends.', saving:false}
+        ];
+      }
+
+    });
+  </script>
+</dom-module>

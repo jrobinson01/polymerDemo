@@ -1,0 +1,32 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<dom-module id="new-todo">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <input type="text" value="{{body::input}}" placeholder="there's always more todo!"></input>
+    <button type="submit" on-tap="addTap">Add</button>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'new-todo',
+
+      properties: {
+        body:{
+          type:String
+        }
+      },
+
+      addTap: function(event) {
+        this.fire('create_todo', {body:this.body});
+        this.body = '';
+      }
+
+    });
+  </script>
+</dom-module>

@@ -1,0 +1,61 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<dom-module id="todos-list">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <ul>
+      <template is="dom-repeat" items="[[todos]]">
+        <li>
+          <button on-tap="toggleCompleteTap">done?</button>
+          <div contenteditable on-blur="editTodo">[[item.body]]</div>
+          <template is="dom-if" if="[[item.complete]]">
+            complete!
+          </template>
+          <template is="dom-if" if="[[item.saving]]">
+            saving...
+          </template>
+          <template is="dom-if" if="[[!item.saving]]">
+            <!-- oddly, we need to create a reference to the item manually or it doesn't exist on the event -->
+            <button on-tap="deleteTap" item="[[item]]">delete</button>
+          </template>
+        </li>
+      </template>
+    </ul>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'todos-list',
+
+      properties: {
+        todos:{
+          type:Array
+        }
+      },
+
+      toggleCompleteTap: function(event, detail){
+        const item = event.model.item;
+        item.complete = !item.complete;
+        this.fire('update_todo', {update:item, prop:'complete', value:item.complete});
+      },
+
+      editTodo: function(event, detail) {
+        const item = event.model.item;
+        if (item.body !== event.target.innerText) {
+          this.fire('update_todo', {update:item, prop:'body', value:event.target.innerText});
+        }
+      },
+
+      deleteTap: function(event, detail) {
+        const item = event.model.item;
+        this.fire('delete_todo', item);
+      }
+
+    });
+  </script>
+</dom-module>

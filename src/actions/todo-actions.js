@@ -35,7 +35,7 @@ actions.todo = {
     const todo = {complete:false, body:detail.body, saving:true};
     this.push('todos', todo);
     const index = this.todos.indexOf(todo);
-    this.async(()=> {
+    this.async(() => {
       this.notifyPath(`todos.${index}.saving`, false);
     }, 1000);
   },
@@ -46,7 +46,7 @@ actions.todo = {
       const toBeRemoved = this.todos[index];
       this.notifyPath(`todos.${index}.saving`, true);
       //fake network action
-      this.async(()=> {
+      this.async(() => {
         this.notifyPath(`todos.${index}.saving`, false);
         this.splice('todos', index, 1);
       }, 1000);
@@ -61,7 +61,7 @@ actions.todo = {
     //push update events into an observable?
     //observable debounces x ms until deciding to save?
     //...
-    this.async(()=> {
+    this.async(() => {
       detail.saving = false;
       this.notifyPath(`todos.${index}.saving`, detail.saving);
       this.notifyPath(`todos.${index}.${detail.prop}`, detail.value);

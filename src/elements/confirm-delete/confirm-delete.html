@@ -1,0 +1,43 @@
+<link rel="import" href="../../../bower_components/polymer/polymer.html">
+
+<dom-module id="confirm-delete">
+  <template>
+    <style>
+      :host {
+        display: block;
+        text-align:center;
+      }
+      .todoText{
+        margin:10px;
+        margin-bottom:20px;
+      }
+    </style>
+    <h3>Are you want to delete this todo?</h3>
+    <div class="todoText">"[[todo.body]]"</div>
+    <button type="button" on-tap="yesTap">YES!</button>
+    <button type="button" on-tap="noTap">NO!</button>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'confirm-delete',
+
+      properties: {
+        todo:{
+          type:Object
+        }
+      },
+
+      yesTap: function(event) {
+        this.fire('delete_todo', this.todo);
+        this.fire('confirm_delete');
+      },
+
+      noTap: function(event) {
+        this.fire('cancel_delete');
+      }
+
+    });
+  </script>
+</dom-module>

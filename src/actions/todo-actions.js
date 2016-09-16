@@ -65,6 +65,6 @@ actions.todo = {
       detail.saving = false;
       this.notifyPath(`todos.${index}.saving`, detail.saving);
       this.notifyPath(`todos.${index}.${detail.prop}`, detail.value);
-    }, 3000);
+    }, 1000);
   }
 };

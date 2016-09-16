@@ -63,7 +63,8 @@
 
       deleteTap: function(event, detail) {
         const item = event.model.item;
-        this.fire('delete_todo', item);
+        this.fire('request_delete_todo', item);
+        //this.fire('delete_todo', item);
       }
 
     });

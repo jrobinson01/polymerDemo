@@ -1,14 +1,35 @@
 'use strict';
-var actions = actions = actions || {};
-console.log('actions', actions);
-//actions.todo? provides new, delete, update
+var actions = actions || {};
+
+//store behavior on global namespace
 actions.todo = {
 
+  //declare our global model properties
+  properties: {
+    todos:{
+      type:Array
+    }
+  },
+
+  //listen for action events
   listeners: {
     'create_todo': 'createTodo',
     'delete_todo': 'deleteTodo',
     'update_todo': 'updateTodo'
   },
+
+  //initialize model
+  ready: function() {
+    this.todos = [
+      {complete:false, body:'complete this demo', saving:false},
+      {complete:false, body:'astound friends', saving:false},
+      {complete:false, body:'add component tests', saving:false},
+      {complete:false, body:'tests for actions', saving:false},
+      {complete:false, body:'routing', saving:false}
+    ];
+  },
+
+  /** handle events **/
 
   createTodo: function(event, detail) {
     const todo = {complete:false, body:detail.body, saving:true};
@@ -33,7 +54,6 @@ actions.todo = {
   },
 
   updateTodo: function(event, detail) {
-    console.log('updateTodo:', detail);
     const index = this.todos.indexOf(detail.update);
     detail.saving = true;
     this.notifyPath(`todos.${index}.saving`, detail.saving);
@@ -45,7 +65,6 @@ actions.todo = {
       detail.saving = false;
       this.notifyPath(`todos.${index}.saving`, detail.saving);
       this.notifyPath(`todos.${index}.${detail.prop}`, detail.value);
-    }, 1000);
+    }, 3000);
   }
-
 };

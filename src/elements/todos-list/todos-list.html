@@ -6,11 +6,19 @@
       :host {
         display: block;
       }
+      ul {
+        width:300px;
+      }
+      li {
+        list-style: none;
+      }
+      .deleteBtn {
+        color:red;
+      }
     </style>
     <ul>
       <template is="dom-repeat" items="[[todos]]">
         <li>
-          <button on-tap="toggleCompleteTap">done?</button>
           <div contenteditable on-blur="editTodo">[[item.body]]</div>
           <template is="dom-if" if="[[item.complete]]">
             complete!
@@ -19,11 +27,13 @@
             saving...
           </template>
           <template is="dom-if" if="[[!item.saving]]">
+            <button type="button" on-tap="toggleCompleteTap">done?</button>
             <!-- oddly, we need to create a reference to the item manually or it doesn't exist on the event -->
-            <button on-tap="deleteTap" item="[[item]]">delete</button>
+            <button type="button" class="deleteBtn" on-tap="deleteTap" item="[[item]]">delete</button>
           </template>
         </li>
       </template>
+
     </ul>
   </template>
 

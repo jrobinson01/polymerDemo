@@ -16,25 +16,11 @@
   </template>
 
   <script>
-
     Polymer({
 
       is: 'polymerDemo-app',
 
-      behaviors:[actions.todo],
-
-      properties: {
-        todos:{
-          type:Array
-        }
-      },
-
-      ready: function() {
-        this.todos = [
-          {complete:false, body:'complete this demo.', saving:false},
-          {complete:false, body:'astound friends.', saving:false}
-        ];
-      }
+      behaviors:[actions.todo]
 
     });
   </script>

@@ -20,6 +20,7 @@
     <dialog>
       <confirm-delete></confirm-delete>
     </dialog>
+    <div>[[completeCount]] of [[todos.length]] complete</div>
     <todos-list todos="[[todos]]"></todos-list>
     <new-todo></new-todo>
   </template>
@@ -32,7 +33,15 @@
       listeners:{
         'request_delete_todo': 'showDeleteConfirm',
         'confirm_delete':'confirmDelete',
-        'cancel_delete':'cancelDelete'
+        'cancel_delete':'cancelDelete',
+        'update_todo':'onTodoUpdate'
+      },
+
+      properties:{
+        'completeCount':{
+          type:Number,
+          value:0
+        }
       },
 
       behaviors:[actions.todo],
@@ -48,7 +57,11 @@
 
       cancelDelete: function(event) {
         this.$$('dialog').close();
-      }
+      },
+
+      onTodoUpdate: function() {
+        this.completeCount = this.todos.filter(todo => todo.complete).length;
+      },
 
     });
   </script>
